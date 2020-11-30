@@ -1,8 +1,10 @@
 <template>
   <form>
-      <b-input v-model="name" placeholder="upisi ime todo itema"></b-input>
+      <b-input v-model="todo.title" placeholder="upisi ime todo itema"></b-input>
         
-      <b-button >Novi todo</b-button>
+      <b-button v-if="$route.params.id" @click="addTodo" type="is-primary">Update todo</b-button>
+    <b-button v-else @click="addTodo" type="is-primary">Novi todo</b-button>
+  
   </form>
 </template>
 
@@ -10,6 +12,25 @@
 export default {
     data (){
         return{
+            todo: {
+                id: null,
+                title: ''
+            }
+            
+        }
+    },
+    methods: {
+        addTodo() {
+            this.$emit('updated', this.todo)
+        }
+    },
+    mounted (){
+        if(this.$route.params.id){
+            fetch('https://jsonplaceholder.typicode.com/todos/' + this.$route.params.id)
+                .then((response) => response.json())
+                .then((data) => {
+                    this.todo = data
+                })
         }
     }
   
@@ -20,9 +41,9 @@ export default {
 <style scoped>
    form{
        display:flex;
-       margin-top: 20px;
-       padding-top: 2px;
-       border-top: 1px solid #EFEFEF;
+       margin: 0 auto;
+       padding: 40px;
+       max-width: 600px;
    }
    div{
        flex:1;
