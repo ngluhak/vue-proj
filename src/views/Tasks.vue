@@ -20,8 +20,8 @@
 		</div>
 	</div>
 	
-	<header style="background-image: url('img/shop.jpg');">
-		<h1>Shop at <strong>Indoor Garden</strong></h1>
+	<header >
+		<h1>Shop at <strong style="color: white;">Indoor Garden</strong></h1>
 	</header>
 
 
@@ -67,9 +67,10 @@
 export default {
   name: 'Tasks',
   mounted (){
-    fetch('https://trefle.io/api/v1/plants?token=RFUVPiliIyGUqShN9e4veffcMROwrJH04nqr08bCgGM')
+    fetch('http://localhost:8080/https://trefle.io/api/v1/plants?token=RFUVPiliIyGUqShN9e4veffcMROwrJH04nqr08bCgGM')
       .then((response) => response.json().data)
       .then((data) => {
+        console.log(data)
         this.data = data
         this.checkedRows = data.filter(todo => todo.completed)
       })
@@ -182,7 +183,7 @@ p {
 }
 
 header {
-    background-image: url('img/home2.jpg');
+   
     background-position: bottom right;
     text-align: center;
     padding: 170px 0;
