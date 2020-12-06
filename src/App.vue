@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Tasks</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/about">Home</router-link> |
+      <router-link to="/">Shop</router-link>
+      
     </div>
     <router-view/>     
     
@@ -23,7 +24,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  max-width: 600px;
-  margin: 60px auto;
 }
 </style>
