@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 import Tasks from '../views/Tasks.vue'
 import About from '../views/About.vue'
 import AddTodo from '../components/AddTodo.vue'
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '@fortawesome/fontawesome-free/css/all.css'
+import '@fortawesome/fontawesome-free/js/all.js'
 
 Vue.use(VueRouter)
 
