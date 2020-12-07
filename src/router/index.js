@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Tasks from '../views/Tasks.vue'
 import About from '../views/About.vue'
+import Contact from '../views/Contact.vue'
 import AddTodo from '../components/AddTodo.vue'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -12,7 +13,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/shop',
     name: 'Tasks',
     component: Tasks,
     children: [
@@ -29,9 +30,14 @@ const routes = [
     ]
   },
   {
-    path: '/about',
+    path: '/',
     name: 'About',
     component: About
+  },
+  {
+    path: '/contact',
+    name: 'Contact',
+    component: Contact
   }
 ]
 
