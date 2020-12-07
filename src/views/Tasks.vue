@@ -21,20 +21,37 @@
 	</div>
 	
 	<header >
-		<h1>Shop at <strong style="color: white;">Indoor Garden</strong></h1>
+		<h1>Browse through our offers</h1>
 	</header>
 
 
-  <div class="tasks">
+  <div class="container tasks" style="padding: 40px 0px;">
     <b-button @click="$router.push('/add')">Add new todo item</b-button>
-    <b-table checkable :checked-rows.sync="checkedRows" :data="data" :row-class="(row) => checkedRows.includes(row) && 'is-completed'">
+    <b-table checkable :checked-rows.sync="checkedRows" :data="data" :row-class="(row) => checkedRows.includes(row) && 'is-completed'"
+      :paginated="isPaginated"
+            :per-page="perPage"
+            :current-page.sync="currentPage"
+            :pagination-simple="isPaginationSimple"
+            :pagination-position="paginationPosition"
+            :default-sort-direction="defaultSortDirection"
+            :pagination-rounded="isPaginationRounded"
+            :sort-icon="sortIcon"
+            :sort-icon-size="sortIconSize"
+            default-sort="user.first_name"
+            aria-next-label="Next page"
+            aria-previous-label="Previous page"
+            aria-page-label="Page"
+            aria-current-label="Current page"
+            :striped="isStriped"
+            :selected.sync="selected"
+      >
       
       <b-table-column v-slot="props">
-        {{ props.row.common_name}}
+        {{ props.row.title}}
       </b-table-column>
 
       <b-table-column v-slot="props">
-        <b-button size="is-small" type="is-success is-light" @click="$router.push('/edit/' + props.row.scientific_name)">Add to basket</b-button>
+        <b-button size="is-small" type="is-success is-light" @click="$router.push('/edit/' + props.row.id)">Add to basket</b-button>
       </b-table-column>
 
     </b-table>
@@ -67,8 +84,8 @@
 export default {
   name: 'Tasks',
   mounted (){
-    fetch('http://localhost:8080/https://trefle.io/api/v1/plants?token=RFUVPiliIyGUqShN9e4veffcMROwrJH04nqr08bCgGM')
-      .then((response) => response.json().data)
+    fetch('https://jsonplaceholder.typicode.com/todos')
+      .then((response) => response.json())
       .then((data) => {
         console.log(data)
         this.data = data
@@ -80,13 +97,13 @@ export default {
       this.$router.push('/')
     },
     handleUpdate(todo){
-      if (todo.common_name){
-          this.data.find((t) => t.common_name == todo.common_name).scientific_name = todo.scientific_name
+      if (todo.id){
+          this.data.find((t) => t.id == todo.id).title = todo.title
       } else{
         this.data.unshift({
         userId: 1,
-        common_name: todo.common_name,
-        scientific_name: todo.scientific_name,
+        id: this.data.length + 1,
+        title: todo.title,
         completed: false
         })
         this.$router.push('/')
@@ -99,7 +116,21 @@ export default {
             return {
                 value: 1,
                 checkedRows: [],
-                data: [ ]
+                data: [ ],
+                columns:[
+                  {
+                    searchable: true,
+                  }
+                ],
+                isPaginated: true,
+                isPaginationRounded: true,
+                paginationPosition: 'bottom',
+                defaultSortDirection: 'asc',
+                sortIcon: 'arrow-up',
+                sortIconSize: 'is-small',
+                currentPage: 1,
+                perPage: 10,
+                isStriped: true,
             }
         }
 }
